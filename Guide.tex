@@ -1,0 +1,138 @@
+\documentclass[a4paper, 12pt]{article} % Класс документа и параметры страницы
+
+% --- Пакеты ---
+\usepackage[T2A]{fontenc}            % Кодировка шрифтов
+\usepackage[utf8]{inputenc}          % Кодировка документа
+\usepackage[english, russian]{babel} % Язык документа
+\usepackage{geometry}                % Настройка полей
+\usepackage{titling}                 % Для кастомного титульного листа
+\usepackage{tocloft}                 % Для настройки оглавления
+\usepackage{setspace}                % Для интерлиньяжа
+\usepackage{indentfirst}             % Отступ первой строки
+\usepackage{enumitem}                % Настройка списков
+\usepackage{datetime}                % Работа с датами
+
+% --- Кастомный формат месяца ---
+\makeatletter
+\newcommand{\nominativemonth}[1]{%
+	\ifcase#1\or
+	Январь\or Февраль\or Март\or Апрель\or Май\or Июнь\or
+	Июль\or Август\or Сентябрь\or Октябрь\or Ноябрь\or Декабрь%
+	\fi
+}
+\newdateformat{monthyear}{\nominativemonth{\THEMONTH} \THEYEAR~г.}
+\monthyear
+\makeatother
+
+\setlist{noitemsep}      % Убирает промежутки между пунктами
+
+% --- Настройка страницы ---
+\geometry{
+	a4paper,
+	left=30mm,       % Левое поле
+	right=15mm,      % Правое поле
+	top=20mm,        % Верхнее поле
+	bottom=20mm,     % Нижнее поле
+	marginparsep=7pt,
+	marginparwidth=0.6in
+}
+
+% --- Настройка титульной страницы ---
+%\title{\Huge\textbf{Руководство по созданию\\CV-моделей глубокого обучения для бортовых систем}}
+\author{\Large Шубин Никита \\ \small shubin.kit@ya.ru}
+\date{\vspace{-5ex}} % Убираем дату с титульной страницы
+
+% --- Настройка оглавления ---
+\renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}} % Точки в оглавлении
+\setlength{\cftbeforesecskip}{5pt} % Отступы между пунктами
+
+% --- Настройка разделов ---
+%\titleformat{\section}
+%{\normalfont\large\bfseries}{\thesection}{1em}{}
+%\titlespacing*{\section}{0pt}{12pt}{6pt}
+
+% --- Создание команды для списка сокращений ---
+\newcommand{\abbrevpage}{
+	\newpage
+	\thispagestyle{empty}
+	\section*{Список сокращений и терминов}
+	%\addcontentsline{toc}{section}{Список сокращений и терминов}
+	
+	\begin{description}[leftmargin=!, labelwidth=4cm, align=left]
+		\item[НС/ИНС] (Искусственная) нейронная сеть		
+		\item[ТЗ] Техническое задание
+		\item[СТЗ] Система технического зрения
+		\item[ОС] Обратная связь
+		\item[ОИ] Объект интереса
+
+
+		\item[DL] Deep Learning (Глубокое обучение)
+		\item[ONNX] Open Neural Network Exchange
+		\item[API] Application Programming Interface
+		\item[SDK] Software Development Kit
+		\item[IDE] Integrated Development Environment
+		\item[FPS] Frames Per Second (Кадров в секунду)
+		\item[IoU] Intersection over Union
+	\end{description}
+	
+	\vspace{1cm}
+	\begin{description}[leftmargin=!, labelwidth=4cm, align=left]
+		\item[Квантизация] Процесс уменьшения точности вычислений
+		\item[Прунинг] Удаление малозначимых параметров модели
+		\item[Аугментация] Искусственное расширение набора данных через случайные геометрические и яркостные искажения изображений
+		\item[Валидация] Проверка качества модели
+	\end{description}
+}
+
+% --- Начало документа ---
+\begin{document}
+	
+	% ======================
+	% Первая страница (титульная)
+	% ======================
+	\begin{titlepage}
+		\centering
+		\vspace*{3cm}
+		
+		{\Huge\textbf{Руководство по созданию\\CV-моделей глубокого обучения для ресурсо-ограниченных устройств}}
+		
+		\vspace{1.5cm}
+		{\Large Руководство по разработке моделей технического зрения для бортовых систем и мобильных устройств}
+		
+		\vspace{2.5cm}
+		{\Large \theauthor}
+		
+		\vfill
+		\begin{minipage}{0.8\textwidth}
+			\centering\small
+			Стандарты и лучшие практики для ML-команд. Фокус на разработке моделей глубокого обучения для ресурсо-ограниченных устройств. Результат работы - оптимизированная ONNX-модель, готовая к интеграции. Вопросы развертывания не рассматриваются.
+		\end{minipage}
+		
+		\vspace{1cm}
+		\monthyear
+		{\large Версия 0.0.1 \\ \today}
+	\end{titlepage}
+	
+	% ======================
+	% Вторая страница (сокращения)
+	% ======================
+	\abbrevpage % Вызов команды списка сокращений
+	
+	% ======================
+	% Третья страница (оглавление)
+	% ======================
+	\newpage
+	Жизненный цикл среднего ML-проекта состоит из следующих этапов:
+	\renewcommand{\contentsname}{}  % Замена стандартного "Содержание" на другой текст
+	\thispagestyle{empty}
+	\tableofcontents
+	
+	% ======================
+	% Четвертая страница (начало основного содержания)
+	% ======================
+	\newpage
+	%\setcounter{page}{1} % Начинаем нумерацию с 1
+	\pagenumbering{arabic} % Арабские цифры
+	\input{Content}
+
+\end{document}
