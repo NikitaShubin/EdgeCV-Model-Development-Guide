@@ -11,6 +11,31 @@
 \usepackage{indentfirst}             % Отступ первой строки
 \usepackage{enumitem}                % Настройка списков
 \usepackage{datetime}                % Работа с датами
+\usepackage{caption}                 % Для настройки подписей
+\usepackage{float}                   % Для размещения объектов чёток в месте их объявления (без автоматического перемещения)
+\usepackage{verbatim}                % Многострочные комментарии
+% Работа с блок-схемами:
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows, positioning, calc}
+
+% --- Настройка стилей блок-схем с поддержкой многострочного текста ---
+\tikzstyle{block} = [rectangle, draw, minimum height=1.5cm, align=center]
+\tikzstyle{decision} = [diamond, draw, aspect=2, align=center, inner sep=0pt]
+\tikzstyle{startstop} = [ellipse, draw, minimum width=3cm, minimum height=1.5cm, align=center]
+\tikzstyle{arrow} = [thick, ->, >=stealth]
+
+% ===== НАСТРОЙКА НУМЕРАЦИИ =====
+% Привязка счетчиков к разделу:
+\counterwithin{figure}{section}
+\counterwithin{table}{section}
+\counterwithin{equation}{section} % Для формул
+% Формат нумерации: раздел.номер:
+\renewcommand{\thefigure}{\thesection.\arabic{figure}}
+\renewcommand{\thetable}{\thesection.\arabic{table}}
+\renewcommand{\theequation}{\thesection.\arabic{equation}} % Для формул
+% Настройка названий подписей:
+\captionsetup[figure]{name=Рисунок}
+\captionsetup[table]{name=Таблица}
 
 % --- Кастомный формат месяца ---
 \makeatletter
@@ -45,11 +70,6 @@
 % --- Настройка оглавления ---
 \renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}} % Точки в оглавлении
 \setlength{\cftbeforesecskip}{5pt} % Отступы между пунктами
-
-% --- Настройка разделов ---
-%\titleformat{\section}
-%{\normalfont\large\bfseries}{\thesection}{1em}{}
-%\titlespacing*{\section}{0pt}{12pt}{6pt}
 
 % --- Создание команды для списка сокращений ---
 \newcommand{\abbrevpage}{
@@ -110,7 +130,7 @@
 		
 		\vspace{1cm}
 		\monthyear
-		{\large Версия 0.0.1 \\ \today}
+		{\large Версия 0.0.2 \\ \today}
 	\end{titlepage}
 	
 	% ======================
